@@ -1,6 +1,6 @@
 package com.nordcrypto.portfoliomanager.services;
 
-import com.nordcrypto.portfoliomanager.entities.User;
+import com.nordcrypto.portfoliomanager.models.User;
 import com.nordcrypto.portfoliomanager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

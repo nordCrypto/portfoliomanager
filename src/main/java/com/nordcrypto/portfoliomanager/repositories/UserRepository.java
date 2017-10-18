@@ -1,6 +1,6 @@
 package com.nordcrypto.portfoliomanager.repositories;
 
-import com.nordcrypto.portfoliomanager.entities.User;
+import com.nordcrypto.portfoliomanager.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

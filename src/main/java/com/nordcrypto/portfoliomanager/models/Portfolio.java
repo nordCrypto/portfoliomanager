@@ -1,4 +1,4 @@
-package com.nordcrypto.portfoliomanager.entities;
+package com.nordcrypto.portfoliomanager.models;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;

@@ -1,4 +1,4 @@
-package com.nordcrypto.portfoliomanager.entities;
+package com.nordcrypto.portfoliomanager.models;
 
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -19,6 +19,10 @@ import javax.persistence.Table;
 @DynamicUpdate
 @Table (name = "ASSET")
 public class Asset {
+
+    public Asset(String name) {
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue
