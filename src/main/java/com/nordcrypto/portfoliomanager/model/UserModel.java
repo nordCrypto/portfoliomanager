@@ -3,10 +3,15 @@ package com.nordcrypto.portfoliomanager.model;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.nordcrypto.portfoliomanager.configuration.View;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 /**
  * @author Andreas Heilig
@@ -26,6 +31,7 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     @JsonView(View.Summary.class)
     private Long userId;
 
@@ -34,6 +40,10 @@ public class UserModel {
 
     @JsonView(View.Summary.class)
     private String email;
+
+    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonView(View.Summary.class)
+    private Set<PortfolioModel> portfolios;
 
     private String password;
 
@@ -69,4 +79,11 @@ public class UserModel {
         this.password = password;
     }
 
+    public Set<PortfolioModel> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(Set<PortfolioModel> portfolios) {
+        this.portfolios = portfolios;
+    }
 }

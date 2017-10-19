@@ -1,6 +1,8 @@
 package com.nordcrypto.portfoliomanager.service;
 
+import com.nordcrypto.portfoliomanager.model.PortfolioModel;
 import com.nordcrypto.portfoliomanager.model.UserModel;
+import com.nordcrypto.portfoliomanager.repository.PortfolioRepository;
 import com.nordcrypto.portfoliomanager.repository.UserRepository;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +18,31 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private UserRepository repository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PortfolioRepository portfolioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
+    public UserService(UserRepository userRepository, PortfolioRepository portfolioRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.portfolioRepository = portfolioRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
+
     public UserModel addEntity(UserModel user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return repository.save(new UserModel(user.getUserName(), user.getEmail(), user.getPassword()));
+        return userRepository.save(user);
     }
 
     public List<UserModel> findUsers() {
-        return IterableUtils.toList(repository.findAll());
+        return IterableUtils.toList(userRepository.findAll());
     }
 
+    public UserModel addPortfolio(Long userId, String name) {
+        UserModel user = userRepository.findOne(userId);
+        PortfolioModel portfolioModel = portfolioRepository.save(new PortfolioModel(name, user));
+        user.getPortfolios().add(portfolioModel);
+        return userRepository.save(user);
+    }
 }

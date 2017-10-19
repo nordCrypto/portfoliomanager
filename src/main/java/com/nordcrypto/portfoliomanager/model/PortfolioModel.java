@@ -1,10 +1,15 @@
 package com.nordcrypto.portfoliomanager.model;
 
-import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.nordcrypto.portfoliomanager.configuration.View;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * @author Andreas Heilig
@@ -13,15 +18,24 @@ import javax.persistence.Id;
 @Entity
 public class PortfolioModel {
 
-    public PortfolioModel(String name) {
+    public PortfolioModel() {
+    }
+
+    public PortfolioModel(String name, UserModel userModel) {
+        this.userModel = userModel;
         this.name = name;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private UserModel userModel;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(View.Summary.class)
     private Long portfolioId;
 
-    @Column(name = "NAME")
+    @JsonView(View.Summary.class)
     private String name;
 
     public Long getPortfolioId() {
@@ -40,4 +54,11 @@ public class PortfolioModel {
         this.name = name;
     }
 
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
 }

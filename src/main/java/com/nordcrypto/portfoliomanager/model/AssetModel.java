@@ -13,6 +13,9 @@ import javax.persistence.Id;
 @Entity
 public class AssetModel {
 
+    public AssetModel() {
+    }
+
     public AssetModel(String name) {
         this.name = name;
     }
