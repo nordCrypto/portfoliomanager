@@ -1,7 +1,8 @@
-package com.nordcrypto.portfoliomanager.services;
+package com.nordcrypto.portfoliomanager.service;
 
-import com.nordcrypto.portfoliomanager.models.User;
-import com.nordcrypto.portfoliomanager.repositories.UserRepository;
+import com.nordcrypto.portfoliomanager.model.UserModel;
+import com.nordcrypto.portfoliomanager.repository.UserRepository;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Service
 public class UserService {
+
     private UserRepository repository;
     private PasswordEncoder passwordEncoder;
 
@@ -23,12 +25,13 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User addEntity(User user) {
+    public UserModel addEntity(UserModel user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return repository.save(user);
+        return repository.save(new UserModel(user.getUserName(), user.getEmail(), user.getPassword()));
     }
 
-    public List<User> findUsers() {
-        return repository.findAll();
+    public List<UserModel> findUsers() {
+        return IterableUtils.toList(repository.findAll());
     }
+
 }

@@ -1,4 +1,4 @@
-package com.nordcrypto.portfoliomanager.controllers;
+package com.nordcrypto.portfoliomanager.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

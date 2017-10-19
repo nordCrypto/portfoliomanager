@@ -1,41 +1,40 @@
-package com.nordcrypto.portfoliomanager.models;
+package com.nordcrypto.portfoliomanager.model;
 
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.SelectBeforeUpdate;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.nordcrypto.portfoliomanager.configuration.View;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.util.Set;
 
 /**
  * @author Andreas Heilig
  * Date: 17.10.2017
  */
 @Entity
-@SelectBeforeUpdate
-@DynamicUpdate
-@Table(name = "USER")
-public class User {
+public class UserModel {
 
-    @OneToMany(mappedBy = "user")
-    private Set<Portfolio> portfolios;
+    public UserModel() {
+    }
+
+    public UserModel(String userName, String email, String password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
 
     @Id
-    @GeneratedValue
-    @Column(name = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(View.Summary.class)
     private Long userId;
 
-    @Column(name = "NAME")
+    @JsonView(View.Summary.class)
     private String userName;
 
-    @Column(name = "EMAIL")
+    @JsonView(View.Summary.class)
     private String email;
 
-    @Column(name = "PASSWORD")
     private String password;
 
     public Long getUserId() {
@@ -70,11 +69,4 @@ public class User {
         this.password = password;
     }
 
-    public Set<Portfolio> getPortfolios() {
-        return portfolios;
-    }
-
-    public void setPortfolios(Set<Portfolio> portfolios) {
-        this.portfolios = portfolios;
-    }
 }

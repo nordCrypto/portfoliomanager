@@ -1,6 +1,6 @@
-package com.nordcrypto.portfoliomanager.controllers;
+package com.nordcrypto.portfoliomanager.controller;
 
-import com.nordcrypto.portfoliomanager.models.Asset;
+import com.nordcrypto.portfoliomanager.model.AssetModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,9 +19,9 @@ import java.util.List;
 public class AssetController {
 
     @RequestMapping(value = "/assets", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Asset> getAssets() {
-        List<Asset> cryptoList = new ArrayList<>();
-        Asset bitcoin = new Asset("bitcoin");
+    public List<AssetModel> getAssets() {
+        List<AssetModel> cryptoList = new ArrayList<>();
+        AssetModel bitcoin = new AssetModel("bitcoin");
         cryptoList.add(bitcoin);
         return cryptoList;
     }

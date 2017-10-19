@@ -1,35 +1,26 @@
-package com.nordcrypto.portfoliomanager.models;
+package com.nordcrypto.portfoliomanager.model;
 
 
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.SelectBeforeUpdate;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * @author Andreas Heilig
  * Date: 17.10.2017
  */
 @Entity
-@SelectBeforeUpdate
-@DynamicUpdate
-@Table (name = "ASSET")
-public class Asset {
+public class AssetModel {
 
-    public Asset(String name) {
+    public AssetModel(String name) {
         this.name = name;
     }
 
     @Id
-    @GeneratedValue
-    @Column(name = "ASSET_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long assetID;
 
-    @Column(name = "NAME")
     private String name;
 
 
