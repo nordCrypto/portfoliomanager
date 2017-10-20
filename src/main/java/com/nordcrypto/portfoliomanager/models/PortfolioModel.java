@@ -1,4 +1,4 @@
-package com.nordcrypto.portfoliomanager.model;
+package com.nordcrypto.portfoliomanager.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.nordcrypto.portfoliomanager.configuration.View;
@@ -21,7 +21,7 @@ public class PortfolioModel {
     public PortfolioModel() {
     }
 
-    public PortfolioModel(String name, UserModel userModel) {
+    public PortfolioModel(UserModel userModel, String name) {
         this.userModel = userModel;
         this.name = name;
     }

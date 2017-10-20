@@ -1,6 +1,6 @@
 package com.nordcrypto.portfoliomanager.repository;
 
-import com.nordcrypto.portfoliomanager.model.PortfolioModel;
+import com.nordcrypto.portfoliomanager.models.PortfolioModel;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

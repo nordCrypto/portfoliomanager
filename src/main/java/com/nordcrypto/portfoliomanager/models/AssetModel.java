@@ -1,4 +1,4 @@
-package com.nordcrypto.portfoliomanager.model;
+package com.nordcrypto.portfoliomanager.models;
 
 
 import javax.persistence.Entity;

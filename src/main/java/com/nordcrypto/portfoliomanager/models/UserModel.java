@@ -1,4 +1,4 @@
-package com.nordcrypto.portfoliomanager.model;
+package com.nordcrypto.portfoliomanager.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.nordcrypto.portfoliomanager.configuration.View;

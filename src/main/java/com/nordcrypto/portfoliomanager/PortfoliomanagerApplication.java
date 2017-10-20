@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"com.nordcrypto.portfoliomanager.model"})
+@EntityScan(basePackages = {"com.nordcrypto.portfoliomanager.models"})
 @EnableJpaRepositories(basePackages = {"com.nordcrypto.portfoliomanager.repository"})
 public class PortfoliomanagerApplication {
 	public static void main(String[] args) {

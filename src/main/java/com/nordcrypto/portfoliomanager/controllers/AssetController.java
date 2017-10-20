@@ -1,6 +1,6 @@
-package com.nordcrypto.portfoliomanager.controller;
+package com.nordcrypto.portfoliomanager.controllers;
 
-import com.nordcrypto.portfoliomanager.model.AssetModel;
+import com.nordcrypto.portfoliomanager.models.AssetModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
