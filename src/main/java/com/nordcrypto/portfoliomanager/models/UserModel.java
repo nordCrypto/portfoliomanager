@@ -1,7 +1,7 @@
 package com.nordcrypto.portfoliomanager.models;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.nordcrypto.portfoliomanager.configuration.View;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -18,13 +20,14 @@ import java.util.Set;
  * Date: 17.10.2017
  */
 @Entity
-public class UserModel {
+@Table(name = "users")
+public class UserModel implements UserDetails {
 
     public UserModel() {
     }
 
-    public UserModel(String userName, String email, String password) {
-        this.userName = userName;
+    public UserModel(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -32,35 +35,40 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    @JsonView(View.Summary.class)
-    private Long userId;
+    private Long id;
 
-    @JsonView(View.Summary.class)
-    private String userName;
+    @Column(name = "username")
+    private String username;
 
-    @JsonView(View.Summary.class)
+    @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonView(View.Summary.class)
-    private Set<PortfolioModel> portfolios;
-
+    @Column(name = "password")
     private String password;
 
-    public Long getUserId() {
-        return userId;
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    private Collection<? extends GrantedAuthority> authorities;
+
+    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<PortfolioModel> portfolios;
+
+
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -86,4 +94,34 @@ public class UserModel {
     public void setPortfolios(Set<PortfolioModel> portfolios) {
         this.portfolios = portfolios;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }

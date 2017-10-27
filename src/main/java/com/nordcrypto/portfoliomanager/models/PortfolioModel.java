@@ -33,17 +33,17 @@ public class PortfolioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView(View.Summary.class)
-    private Long portfolioId;
+    private Long id;
 
     @JsonView(View.Summary.class)
     private String name;
 
-    public Long getPortfolioId() {
-        return portfolioId;
+    public Long getId() {
+        return id;
     }
 
-    public void setPortfolioId(Long portfolioId) {
-        this.portfolioId = portfolioId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -31,7 +31,7 @@ public class UserController {
     @JsonView(View.Summary.class)
     @PostMapping(value = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserModel> registerUser(@RequestBody UserModel user) {
-        return ResponseEntity.ok().body(userService.addEntity(user));
+        return ResponseEntity.ok().body(userService.save(user));
     }
 
     @JsonView(View.Summary.class)

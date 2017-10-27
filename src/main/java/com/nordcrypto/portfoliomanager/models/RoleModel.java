@@ -1,27 +1,27 @@
 package com.nordcrypto.portfoliomanager.models;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author Andreas Heilig
- * Date: 17.10.2017
+ * Date: 27.10.2017
  */
 @Entity
-public class AssetModel {
+@Table(name = "roles")
+public class RoleModel {
 
-    public AssetModel() {
-    }
-
-    public AssetModel(String name) {
+    public RoleModel(String name) {
         this.name = name;
     }
 
+    RoleModel() {
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     private String name;
@@ -34,7 +34,6 @@ public class AssetModel {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Long getId() {
         return id;

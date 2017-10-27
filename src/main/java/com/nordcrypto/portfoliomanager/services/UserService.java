@@ -2,19 +2,19 @@ package com.nordcrypto.portfoliomanager.services;
 
 import com.nordcrypto.portfoliomanager.models.UserModel;
 import com.nordcrypto.portfoliomanager.repository.UserRepository;
-import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author Andreas Heilig
  * Date: 17.10.2017
  */
-@Service
-public class UserService {
+@Service("userDetailsService")
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -25,14 +25,13 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
-    public UserModel addEntity(UserModel user) {
+    public UserModel save(UserModel user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public List<UserModel> findUsers() {
-        return IterableUtils.toList(userRepository.findAll());
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findOneByUsername(username);
     }
-
 }
