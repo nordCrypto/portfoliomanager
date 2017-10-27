@@ -14,11 +14,11 @@ import java.util.List;
  * @author Andreas Heilig
  * Date: 17.10.2017
  */
-@RequestMapping("/api")
+@RequestMapping("/assets")
 @RestController
 public class AssetController {
 
-    @RequestMapping(value = "/assets", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/get", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<AssetModel> getAssets() {
         List<AssetModel> cryptoList = new ArrayList<>();
         AssetModel bitcoin = new AssetModel("bitcoin");

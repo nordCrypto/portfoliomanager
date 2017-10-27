@@ -26,11 +26,6 @@ public class UserModel implements UserDetails {
     public UserModel() {
     }
 
-    public UserModel(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -115,13 +110,12 @@ public class UserModel implements UserDetails {
         return true;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     @Override
     public boolean isEnabled() {
         return true;
     }
 
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
 }

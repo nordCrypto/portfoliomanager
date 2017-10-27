@@ -1,7 +1,5 @@
 package com.nordcrypto.portfoliomanager.controllers;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.nordcrypto.portfoliomanager.configuration.View;
 import com.nordcrypto.portfoliomanager.models.PortfolioModel;
 import com.nordcrypto.portfoliomanager.services.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,6 @@ public class PortfolioController {
         this.portfolioService = portfolioService;
     }
 
-    @JsonView(View.Summary.class)
     @PostMapping(value = "/add/{userId}/{name}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<PortfolioModel> createPortfolio(@PathVariable("userId") Long userId, @PathVariable("name") String name) {
         return ResponseEntity.ok().body(portfolioService.addPortfolio(userId, name));

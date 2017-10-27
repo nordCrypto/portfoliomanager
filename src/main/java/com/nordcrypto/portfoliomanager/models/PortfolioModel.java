@@ -1,8 +1,5 @@
 package com.nordcrypto.portfoliomanager.models;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.nordcrypto.portfoliomanager.configuration.View;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,10 +29,8 @@ public class PortfolioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(View.Summary.class)
     private Long id;
 
-    @JsonView(View.Summary.class)
     private String name;
 
     public Long getId() {
