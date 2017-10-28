@@ -1,10 +1,12 @@
 package com.nordcrypto.portfoliomanager.controllers;
 
 import com.nordcrypto.portfoliomanager.models.PortfolioModel;
+import com.nordcrypto.portfoliomanager.models.UserModel;
 import com.nordcrypto.portfoliomanager.services.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +27,9 @@ public class PortfolioController {
         this.portfolioService = portfolioService;
     }
 
-    @PostMapping(value = "/add/{userId}/{name}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<PortfolioModel> createPortfolio(@PathVariable("userId") Long userId, @PathVariable("name") String name) {
-        return ResponseEntity.ok().body(portfolioService.addPortfolio(userId, name));
+    @PostMapping(value = "/add", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<PortfolioModel> createPortfolio(@AuthenticationPrincipal UserModel user, @PathVariable("name") String name) {
+        return ResponseEntity.ok().body(portfolioService.addPortfolio(user.getId(), name));
     }
 
 }

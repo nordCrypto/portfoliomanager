@@ -1,10 +1,7 @@
 package com.nordcrypto.portfoliomanager.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author Andreas Heilig
@@ -23,6 +20,10 @@ public class AssetModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "portfolio_id")
+    private PortfolioModel portfolioModel;
 
     private String name;
 

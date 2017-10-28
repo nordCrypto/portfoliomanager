@@ -23,8 +23,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/add", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<UserModel> registerUser(@RequestBody UserModel user) {
+    @PostMapping(value = "/sign-up", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<UserModel> signUp(@RequestBody UserModel user) {
         return ResponseEntity.ok().body(userService.save(user));
     }
 

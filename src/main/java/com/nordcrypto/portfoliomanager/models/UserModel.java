@@ -21,14 +21,13 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class UserModel implements UserDetails {
+public class UserModel {
 
     public UserModel() {
     }
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
@@ -41,14 +40,8 @@ public class UserModel implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "enabled")
-    private boolean enabled;
-
-    private Collection<? extends GrantedAuthority> authorities;
-
     @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<PortfolioModel> portfolios;
-
 
     public Long getId() {
         return id;
@@ -74,14 +67,6 @@ public class UserModel implements UserDetails {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Set<PortfolioModel> getPortfolios() {
         return portfolios;
     }
@@ -90,32 +75,12 @@ public class UserModel implements UserDetails {
         this.portfolios = portfolios;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
 }

@@ -10,7 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * Date: 17.10.2017
  */
 @Configuration
-public class PortfoliomanagerConfiguration {
+public class CommonApplicationConfiguration {
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

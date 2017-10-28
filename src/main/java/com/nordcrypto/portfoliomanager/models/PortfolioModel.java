@@ -1,12 +1,7 @@
 package com.nordcrypto.portfoliomanager.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author Andreas Heilig
@@ -23,15 +18,18 @@ public class PortfolioModel {
         this.name = name;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private UserModel userModel;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private UserModel userModel;
+
+    @OneToMany(mappedBy = "portfolioModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<AssetModel> assets;
 
     public Long getId() {
         return id;
@@ -55,5 +53,13 @@ public class PortfolioModel {
 
     public void setUserModel(UserModel userModel) {
         this.userModel = userModel;
+    }
+
+    public Set<AssetModel> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(Set<AssetModel> assets) {
+        this.assets = assets;
     }
 }
