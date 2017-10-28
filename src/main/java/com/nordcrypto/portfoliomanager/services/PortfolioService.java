@@ -4,8 +4,11 @@ import com.nordcrypto.portfoliomanager.models.PortfolioModel;
 import com.nordcrypto.portfoliomanager.models.UserModel;
 import com.nordcrypto.portfoliomanager.repository.PortfolioRepository;
 import com.nordcrypto.portfoliomanager.repository.UserRepository;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Andreas Heilig
@@ -15,17 +18,18 @@ import org.springframework.stereotype.Service;
 public class PortfolioService {
 
     private PortfolioRepository portfolioRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public PortfolioService(PortfolioRepository portfolioRepository, UserRepository userRepository) {
+    public PortfolioService(PortfolioRepository portfolioRepository) {
         this.portfolioRepository = portfolioRepository;
-        this.userRepository = userRepository;
     }
 
-    public PortfolioModel addPortfolio(Long userId, String name) {
-        UserModel userModel= userRepository.findOne(userId);
+    public PortfolioModel addPortfolio(UserModel userModel, String name) {
         PortfolioModel portfolioModel = new PortfolioModel(userModel, name);
         return portfolioRepository.save(portfolioModel);
+    }
+
+    public List<PortfolioModel> findAllByUser(UserModel userModel) {
+        return portfolioRepository.findAllByUserModel(userModel);
     }
 }
