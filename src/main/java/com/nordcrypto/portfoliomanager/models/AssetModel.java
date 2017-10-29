@@ -8,6 +8,7 @@ import javax.persistence.*;
  * Date: 17.10.2017
  */
 @Entity
+@Table(name = "assets")
 public class AssetModel {
 
     public AssetModel() {

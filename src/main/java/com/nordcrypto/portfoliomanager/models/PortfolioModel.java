@@ -8,6 +8,7 @@ import java.util.Set;
  * Date: 17.10.2017
  */
 @Entity
+@Table(name = "portfolios")
 public class PortfolioModel {
 
     public PortfolioModel() {

@@ -1,6 +1,10 @@
 package com.nordcrypto.portfoliomanager.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.CascadeType;
@@ -12,8 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Andreas Heilig
@@ -21,7 +24,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class UserModel {
+public class UserModel implements UserDetails {
 
     public UserModel() {
     }
@@ -41,7 +44,35 @@ public class UserModel {
     private String password;
 
     @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @RestResource
     private Set<PortfolioModel> portfolios;
+
+    @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<RoleModel> roles;
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
+    }
 
     public Long getId() {
         return id;
@@ -75,12 +106,35 @@ public class UserModel {
         this.portfolios = portfolios;
     }
 
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (RoleModel role : getRoles()) {
+            if (role.getName().startsWith("ROLE_")) {
+                authorities.add(new SimpleGrantedAuthority(role.getName().toUpperCase()));
+            } else {
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase()));
+            }
+        }
+        return authorities;
+    }
+
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public Set<RoleModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleModel> roles) {
+        this.roles = roles;
+    }
 }

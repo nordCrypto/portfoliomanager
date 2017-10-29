@@ -1,5 +1,6 @@
 package com.nordcrypto.portfoliomanager.services;
 
+import com.nordcrypto.portfoliomanager.dto.RegisterUserDTO;
 import com.nordcrypto.portfoliomanager.models.UserModel;
 import com.nordcrypto.portfoliomanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import static java.util.Collections.emptyList;
 
 /**
  * @author Andreas Heilig
@@ -32,8 +31,10 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserModel save(UserModel user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public UserModel save(RegisterUserDTO userDTO) {
+        UserModel user = new UserModel();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         return userRepository.save(user);
     }
 
@@ -44,6 +45,10 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         return new User(userModel.getUsername(), userModel.getPassword(), getDefaultAuthority());
+    }
+
+    public UserModel findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     private Collection<SimpleGrantedAuthority> getDefaultAuthority() {

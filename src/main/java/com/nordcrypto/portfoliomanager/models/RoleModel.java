@@ -1,9 +1,6 @@
 package com.nordcrypto.portfoliomanager.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author Andreas Heilig
@@ -26,6 +23,10 @@ public class RoleModel {
 
     private String name;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private UserModel userModel;
+
 
     public String getName() {
         return name;
@@ -41,5 +42,13 @@ public class RoleModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 }

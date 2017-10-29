@@ -66,6 +66,11 @@
             <artifactId>jjwt</artifactId>
             <version>0.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.monitorjbl</groupId>
+            <artifactId>json-view</artifactId>
+            <version>0.16</version>
+        </dependency>
     </dependencies>
 
     <build>
